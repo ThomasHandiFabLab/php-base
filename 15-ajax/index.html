@@ -1,0 +1,49 @@
+
+<!--
+    AJAX signifie Asynchronous JavaScript XML.
+    Aujourd'hui, on récupére plutôt du JSON. On peut aussi récupérer de l'HTML.
+    -> AJAJ, AJAH. AJAX fait mieux donc on garde AJAX.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="text">Chargement en cours...</h1>
+    <button id="changeSentence">Changer la phrase</button>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        // On peut suivre l'évolution de la requête AJAX
+        xhr.addEventListener('readystatechange', function () {
+            if (4 === xhr.readyState) { // Réponse reçue
+                if (200 === xhr.status) { // Réponse avec un status 200
+                    document.getElementById('text').innerHTML = xhr.response;
+                    console.log(xhr.response);
+                }
+            }
+        });
+        // Je prépare la requête HTTP
+        xhr.open('GET', './worker.php');
+        // J'envoie la requête au serveur
+        xhr.send();
+        
+        // Exercice
+        // Ecouter l'événément au clic sur le bouton.
+        // On doit pouvoir cliquer sur le bouton et quand on aura cliqué,
+        // on exécutera une nouvelle requête AJAX sur le serveur pour
+        // récupérer une nouvelle phrase et modifier le contenu du
+        // h1.
+
+        document.getElementById('changeSentence').addEventListener ("click", function () {
+        document.getElementById('text').innerHTML = 'Chargement en cours...';
+            // Je prépare la requête HTTP
+        xhr.open('GET', './worker.php');
+        // J'envoie la requête au serveur
+        xhr.send();
+        });
+    </script>
+</body>
+</html>
